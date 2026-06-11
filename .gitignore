@@ -1,0 +1,17 @@
+# Carpetas de compilación de .NET — NUNCA se suben (son artefactos generados)
+bin/
+obj/
+
+# Archivos de usuario / IDE (config local, no del proyecto)
+.vs/
+*.user
+*.suo
+
+# Resultados de test y cobertura
+[Tt]est[Rr]esult*/
+*.trx
+coverage*/
+
+# Secretos locales (por si acaso) — nunca subir credenciales
+appsettings.*.local.json
+*.env
