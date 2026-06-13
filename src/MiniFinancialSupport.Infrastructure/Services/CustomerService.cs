@@ -61,5 +61,13 @@ namespace MiniFinancialSupport.Infrastructure.Services
             IsActive = c.IsActive,
             CreatedAt = c.CreatedAt
         };
+
+        public async Task<CustomerResponse?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
+        {
+            var customer = await _db.Customers
+                .AsNoTracking()
+                .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
+            return customer is null ? null : MapToResponse(customer);
+        }
     }
 }

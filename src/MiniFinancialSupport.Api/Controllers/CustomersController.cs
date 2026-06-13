@@ -33,4 +33,16 @@ public class CustomersController : ControllerBase
         var created = await _customerService.CreateAsync(request, cancellationToken);
         return CreatedAtAction(nameof(GetAll), new { id = created.Id }, created);
     }
+
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult>GetById(int id,CancellationToken cancellationToken)
+    {
+        var customer = await _customerService.GetByIdAsync(id,cancellationToken);
+
+        if(customer is null)
+        {
+            return NotFound();
+        }
+        return Ok(customer);
+    }
 }
