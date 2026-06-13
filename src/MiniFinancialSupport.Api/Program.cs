@@ -8,6 +8,7 @@ using System.Text;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MiniFinancialSupport.Application.Validators;
+using MiniFinancialSupport.Api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,6 +56,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();//Atrapa errores de todo
+app.UseMiddleware<RequestLoginMiddleware>();//Logea cada peticion
 
 // Solo en desarrollo mostramos Swagger (no se expone en producción).
 if (app.Environment.IsDevelopment())
