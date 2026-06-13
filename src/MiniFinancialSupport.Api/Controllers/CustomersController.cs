@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using MiniFinancialSupport.Application.DTOs;
 using MiniFinancialSupport.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization; 
 
 namespace MiniFinancialSupport.Api.Controllers;
-
+[Authorize]//Exige login para todo
 [ApiController]                       // activa validación automática y comportamiento de API
 [Route("api/customers")]             // ruta base de este controller
 public class CustomersController : ControllerBase
@@ -25,6 +26,7 @@ public class CustomersController : ControllerBase
     }
 
     // POST /api/customers -> 201 Created con el customer creado
+    [Authorize(Roles ="Admin")] // Con esta linea solo admin tiene acceso a crear 
     [HttpPost]
     public async Task<ActionResult<CustomerResponse>> Create(CreateCustomerRequest request, CancellationToken cancellationToken)
     {
