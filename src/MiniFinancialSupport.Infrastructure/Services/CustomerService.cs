@@ -69,5 +69,44 @@ namespace MiniFinancialSupport.Infrastructure.Services
                 .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
             return customer is null ? null : MapToResponse(customer);
         }
+
+        public async Task<CustomerResponse?> UpdateAsync(int id, CreateCustomerRequest request, CancellationToken cancellationToken = default)
+        {
+            //Sin As no tracking por que EF Core necesita rastrear los cambios
+            var customer = await _db.Customers.FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
+            if (customer is null)
+            {
+                return null;
+            }
+
+            customer.FullName = request.FullName;
+            customer.Email = request.Email;
+            customer.DocumentNumber = request.DocumentNumber;
+            customer.Phone = request.Phone;
+
+            await _db.SaveChangesAsync(cancellationToken);
+            return MapToResponse(customer);
+        }
+
+        public async Task<bool> InactivateAsync(int id, CancellationToken cancellationToken = default)
+        {
+            var customer = await _db.Customers
+                .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
+
+            if(customer is null)
+            {
+                return false;
+            }
+
+            customer.IsActive = false;
+            await _db.SaveChangesAsync(cancellationToken);
+            return true;
+
+
+        }
+
+
+
+
     }
 }
