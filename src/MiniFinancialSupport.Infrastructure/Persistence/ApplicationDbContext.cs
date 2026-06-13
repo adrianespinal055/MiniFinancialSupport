@@ -15,4 +15,7 @@ public class ApplicationDbContext : DbContext
 
     // Cada DbSet = una tabla. Este es la tabla "Customers".
     public DbSet<Customer> Customers => Set<Customer>();
+
+    public DbSet<Account> Accounts => Set<Account>();
+
 }
