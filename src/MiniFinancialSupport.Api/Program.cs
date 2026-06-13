@@ -5,11 +5,20 @@ using MiniFinancialSupport.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using MiniFinancialSupport.Application.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Controllers: nuestros endpoints REST viven en clases Controller (no en Minimal API).
 builder.Services.AddControllers();
+
+// FluentValidation — 2 piezas:
+// 1) AutoValidation: ASP.NET corre el validador automáticamente y devuelve 400 si falla.
+builder.Services.AddFluentValidationAutoValidation();
+// 2) Registramos TODOS los validadores del assembly (busca a partir de CreateCustomerRequestValidator).
+builder.Services.AddValidatorsFromAssemblyContaining<CreateCustomerRequestValidator>();
 
 // Swagger / OpenAPI: documentación interactiva + probador de la API en el navegador.
 builder.Services.AddEndpointsApiExplorer();
