@@ -25,7 +25,7 @@ namespace MiniFinancialSupport.Application.Validators
                 .NotEmpty().WithMessage("DocumentNumber is required");
 
             RuleFor(x => x.Phone)
-                .MaximumLength(20);
+                .MaximumLength(20);//Es opcional pero si viene maximo 20 character
 
         }
     }

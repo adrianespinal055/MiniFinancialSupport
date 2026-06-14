@@ -32,6 +32,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Registramos nuestro servicio: cuando alguien pida ICustomerService, DI entrega un CustomerService.
 // Scoped = una instancia por cada request HTTP.
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IAccountService,AccountService>();
 
 // Registramos el generador de tokens JWT.
 builder.Services.AddScoped<IJwtService, JwtService>();
