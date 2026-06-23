@@ -9,6 +9,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using MiniFinancialSupport.Application.Validators;
 using MiniFinancialSupport.Api.Middleware;
+using MiniFinancialSupport.Application.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +34,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Scoped = una instancia por cada request HTTP.
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IAccountService,AccountService>();
+builder.Services.AddScoped<ITransferService, TransferService>();
 
 // Registramos el generador de tokens JWT.
 builder.Services.AddScoped<IJwtService, JwtService>();
